@@ -21,12 +21,10 @@ class ScoreScreen extends StatelessWidget {
     int userScore = _qnController.numOfCorrectAns * 20;
 
     // Save the score to the database
-    DatabaseReference _userScoreRef = FirebaseDatabase.instance
-        .reference()
-        .child('users')
-        .child(user.uid)
-        .child('score');
-    _userScoreRef.set(userScore);
+    DatabaseReference _userScoreRef =
+        FirebaseDatabase.instance.reference().child('users').child(user.uid);
+    DatabaseReference newScoreRef = _userScoreRef.child('scores').push();
+    newScoreRef.set(userScore);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

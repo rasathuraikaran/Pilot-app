@@ -31,10 +31,8 @@ class WelcomeScreen extends StatelessWidget {
 
                   Spacer(), // 1/6
                   InkWell(
-                    onTap: () {
-                      addSampleData();
-                    },
-                    // onTap: () => Get.to(QuizScreen()),
+                   
+                     onTap: () => Get.to(QuizScreen()),
                     // Pass contex,
                     child: Container(
                       width: double.infinity,

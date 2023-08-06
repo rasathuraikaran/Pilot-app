@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Quiz App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(), 
-      home: QuizScreen(),
+      theme: ThemeData.dark(),
+      home: SignInScreen(),
     );
   }
 }

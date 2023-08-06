@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "718318314232",
+    "project_id": "pilotquizapp",
+    "storage_bucket": "pilotquizapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718318314232:android:54d82be8f48deb1cfd510d",
+        "android_client_info": {
+          "package_name": "com.example.quiz_app_pilot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718318314232-vst4n95bilsrrfaauut6anfturqkf46u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaEQhpb1EcxZLgT9rkUkpBUAVcaY4AcGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718318314232-vst4n95bilsrrfaauut6anfturqkf46u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

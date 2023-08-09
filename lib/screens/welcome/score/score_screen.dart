@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:quiz_app_pilot/constants.dart';
 import 'package:quiz_app_pilot/controllers/question_controller.dart';

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quiz_app_pilot/login.dart';
+import 'package:quiz_app_pilot/newwelcomeScreen.dart';
 import 'package:quiz_app_pilot/screens/welcome/quiz/quiz_screen.dart';
+import 'package:quiz_app_pilot/screens/welcome/score/display_score.dart';
+import 'package:quiz_app_pilot/screens/welcome/score/score_screen.dart';
 import 'package:quiz_app_pilot/screens/welcome/welcome_screen.dart';
-import 'package:quiz_app_pilot/welcome.dart';
+import 'package:quiz_app_pilot/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Quiz App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: LoginScreen(),
+      home: NewWelcomeScreen(),
     );
   }
 }

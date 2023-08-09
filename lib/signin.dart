@@ -1,40 +1,25 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app_pilot/constants.dart';
-import 'package:quiz_app_pilot/screens/welcome/score/display_score.dart';
 import 'package:quiz_app_pilot/screens/welcome/welcome_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class SignInScreen extends StatefulWidget {
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
 
-  Future<void> _signIn(BuildContext context) async {
-    try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      print("Sign in successful");
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => UserScoresPage()));
-
-      // Navigate to the next screen after successful login
-      // Example: Navigator.pushReplacementNamed(context, '/home');
-    } on FirebaseAuthException catch (e) {
-      print("Sign in failed: ${e.message}");
-    }
-  }
+class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
           backgroundColor: Color(0xFF1C2341),
+          title: Text('SignIn'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -48,13 +33,14 @@ class LoginScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      //2/6
                       Container(
-                        child: Lottie.asset('assets/icons/login.json'),
+                        child: Lottie.asset('assets/icons/signin.json'),
                       ),
                       TextField(
                         controller: _emailController,
@@ -68,7 +54,8 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16.0),
+
+                      SizedBox(height: 16),
                       TextField(
                         controller: _passwordController,
                         obscureText: true,
@@ -81,9 +68,11 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 32.0),
+
+                      SizedBox(height: 32),
+
                       InkWell(
-                        onTap: () => _signIn(context),
+                        onTap: _onSignInButtonPressed,
                         child: Container(
                           width: double.infinity,
                           alignment: Alignment.center,
@@ -103,10 +92,33 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),
         ));
+  }
+
+  Future<void> _onSignInButtonPressed() async {
+    try {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      setState(() {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+      });
+
+      print("dei succes da");
+    } on FirebaseAuthException catch (e) {
+      print("podadunda");
+    }
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    // You can add authentication logic here to sign in the user
+    // For demonstration purposes, we'll just print the email and password for now.
+    print('Email: $email');
+    print('Password: $password');
   }
 }

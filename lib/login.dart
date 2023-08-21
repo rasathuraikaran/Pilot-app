@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quiz_app_pilot/admin.dart';
 import 'package:quiz_app_pilot/constants.dart';
+import 'package:quiz_app_pilot/home.dart';
 import 'package:quiz_app_pilot/screens/welcome/score/display_score.dart';
 import 'package:quiz_app_pilot/screens/welcome/welcome_screen.dart';
+import 'package:quiz_app_pilot/start.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -19,8 +22,17 @@ class LoginScreen extends StatelessWidget {
       );
 
       print("Sign in successful");
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => UserScoresPage()));
+
+      if (userCredential.user?.uid == "MHzAJtqQi1Ups2fXHnXqeby6CFF3") {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    AdminScreen())); // Replace with actual route
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => MyStatelessWidget()));
+      }
 
       // Navigate to the next screen after successful login
       // Example: Navigator.pushReplacementNamed(context, '/home');

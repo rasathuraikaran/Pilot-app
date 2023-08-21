@@ -8,8 +8,10 @@ import '../../../../controllers/question_controller.dart';
 
 
 class ProgressBar extends StatelessWidget {
+final String level;
   const ProgressBar({
     Key? key,
+      required this.level
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class ProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: GetBuilder<QuestionController>(
-        init: QuestionController(),
+        init: QuestionController(level),
         builder: (controller) {
           return Stack(
             children: [

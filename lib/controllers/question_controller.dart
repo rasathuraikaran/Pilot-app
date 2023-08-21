@@ -4,21 +4,28 @@ import 'package:get/state_manager.dart';
 import 'package:quiz_app_pilot/models/Questions.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:quiz_app_pilot/screens/welcome/score/score_screen.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 // We use get package for our state management
 
 class QuestionController extends GetxController
     with SingleGetTickerProviderMixin {
   // Lets animated our progress bar
-
+  String level;
   late AnimationController _animationController;
   late Animation _animation;
+
+  QuestionController(this.level) {
+    _pageController = PageController();
+  }
   // so that we can access our animation outside
   Animation get animation => this._animation;
 
   late PageController _pageController;
   RxList _questions = [].obs;
 
+  final DatabaseReference _databaseReference =
+      FirebaseDatabase.instance.reference().child('physics_mcqs');
   PageController get pageController => this._pageController;
 
   RxList get questions => this._questions;
@@ -42,8 +49,6 @@ class QuestionController extends GetxController
   // called immediately after the widget is allocated memory
   @override
   void onInit() async {
-    _pageController = PageController();
-
     print("karan  is first ");
 
     print(_questions);
@@ -63,25 +68,32 @@ class QuestionController extends GetxController
     _animationController.forward().whenComplete(nextQuestion);
 
     // Once 60s is completed go to the next qn
-    await fetchQuestions1();
+    await fetchQuestionsByLevel(level);
 
     print("karan is now populated");
     print(_questions);
     super.onInit();
   }
 
-  // // called just before the Controller is deleted from memory
   @override
   void onClose() {
     super.onClose();
     _animationController.dispose();
-    _pageController.dispose();
+    _pageController.dispose(); // Dispose the PageController
+  }
+
+  // // called just before the Controller is deleted from memory
+
+  void addMCQData() {
+    for (var mcqData in sample_data) {
+      _databaseReference.push().set(mcqData);
+    }
   }
 
   Future<void> fetchQuestions1() async {
     final DatabaseReference database = FirebaseDatabase.instance.reference();
 
-    database.child('QuestionsList').once().then((DatabaseEvent event) {
+    database.child('physics_mcqs').once().then((DatabaseEvent event) {
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null && snapshot.value is Map) {
         Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
@@ -102,6 +114,40 @@ class QuestionController extends GetxController
     });
   }
 
+  void clearList() {
+    _questions.clear();
+  }
+
+  Future<void> fetchQuestionsByLevel(String level) async {
+    final DatabaseReference database = FirebaseDatabase.instance.reference();
+
+    database.child('physics_mcqs').once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null && snapshot.value is Map) {
+        Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
+
+        data.forEach((key, questionData) {
+          String questionLevel = questionData['level'];
+
+          if (questionLevel == level) {
+            _questions.add(Question(
+              id: questionData['id'],
+              question: questionData['question'],
+              options: List<String>.from(questionData['options']),
+              answer: questionData['answer_index'],
+            ));
+          }
+        });
+
+        _questions.shuffle();
+        // Now you can do something with the filtered and shuffled questions.
+      }
+    }).catchError((error) {
+      // Handle error
+      print("Error fetching questions: $error");
+    });
+  }
+
   void checkAns(Question question, int selectedIndex) {
     // because once user press any option then it will run
     _isAnswered = true;
@@ -111,7 +157,6 @@ class QuestionController extends GetxController
     if (_correctAns == _selectedAns) {
       _numOfCorrectAns++;
 
-      print("I love  nishani");
       print(numOfCorrectAns);
     }
     ;
@@ -141,10 +186,24 @@ class QuestionController extends GetxController
     } else {
       print("Karan number of corrected answers");
       print(numOfCorrectAns);
-      Get.to(ScoreScreen());
-      // Get package provide us simple way to naviigate another page
+      Get.to(ScoreScreen(
+        level: level,
+      ));
 
+      // Get package provide us simple way to naviigate another page
     }
+  }
+
+  void resetQuiz() {
+    level = "";
+    _isAnswered = false;
+    _correctAns = 0;
+    _selectedAns =
+        -1; // You might need to adjust this value depending on your answer indexing
+    _questionNumber.value = 1;
+    _numOfCorrectAns = 0;
+    _animationController.reset();
+    _animationController.forward().whenComplete(nextQuestion);
   }
 
   void updateTheQnNum(int index) {

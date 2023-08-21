@@ -9,29 +9,33 @@ import 'progress_bar.dart';
 import 'question_card.dart';
 
 class Body extends StatefulWidget {
+  final String level;
+
+  const Body({super.key, required this.level});
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  final QuestionController _questionController = Get.put(QuestionController());
+   late QuestionController _questionController;
+ 
   @override
   void setState(VoidCallback fn) {
     _questionController.questions;
     // TODO: implement setState
     super.setState(fn);
   }
+@override
+  void initState() {
+    // TODO: implement initState
+    
+        _questionController = Get.put(QuestionController( widget.level));
 
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SvgPicture.asset(
-          "assets/icons/bg.svg",
-          fit: BoxFit.fill,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-        ),
         SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +43,7 @@ class _BodyState extends State<Body> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: ProgressBar(),
+                child: ProgressBar(level: widget.level,),
               ),
               SizedBox(height: kDefaultPadding),
               Padding(
@@ -77,6 +81,7 @@ class _BodyState extends State<Body> {
                         onPageChanged: _questionController.updateTheQnNum,
                         itemCount: _questionController.questions.length,
                         itemBuilder: (context, index) => QuestionCard(
+                          level: widget.level,
                             question: _questionController.questions[index]),
                       )))),
             ],

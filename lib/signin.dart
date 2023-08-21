@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app_pilot/constants.dart';
 import 'package:quiz_app_pilot/screens/welcome/welcome_screen.dart';
+import 'package:quiz_app_pilot/start.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -105,8 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
           .createUserWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text);
       setState(() {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => MyStatelessWidget()));
       });
 
       print("dei succes da");

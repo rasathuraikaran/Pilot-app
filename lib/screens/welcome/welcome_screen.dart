@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app_pilot/models/Questions.dart';
+import 'package:quiz_app_pilot/quizlevel.dart';
 import 'package:quiz_app_pilot/screens/welcome/quiz/quiz_screen.dart';
 
 import '../../constants.dart';
@@ -12,7 +13,9 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+        body: Container(
+      color: Color(0xFF1C2341),
+      child: Stack(
         children: [
           SafeArea(
             child: Padding(
@@ -31,8 +34,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   Spacer(), // 1/6
                   InkWell(
-                   
-                     onTap: () => Get.to(QuizScreen()),
+                    onTap: () => Get.to(QuizLevelSelection()),
                     // Pass contex,
                     child: Container(
                       width: double.infinity,
@@ -58,7 +60,7 @@ class WelcomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ));
   }
 
   Future<void> fetchQuestions() async {

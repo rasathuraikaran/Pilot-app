@@ -38,7 +38,8 @@ class _UserScoresPageState extends State<UserScoresPage> {
           print(snapshot.value);
           Map<dynamic, dynamic> scoresMap =
               snapshot.value as Map<dynamic, dynamic>;
-          List<int> scores = scoresMap.values.cast<int>().toList();
+          List<int> scores =
+              scoresMap.values.cast<int>().toList().reversed.toList();
           print("karan list");
           print(scores);
           setState(() {
@@ -49,6 +50,9 @@ class _UserScoresPageState extends State<UserScoresPage> {
     } else {
       print("user is null");
     }
+
+    print(_scores);
+
   }
 
   @override
@@ -59,14 +63,9 @@ class _UserScoresPageState extends State<UserScoresPage> {
           backgroundColor: Color(0xFF1C2341),
         ),
         body: Container(
+          color: Color(0xFF1C2341),
           child: Stack(
             children: [
-              SvgPicture.asset(
-                "assets/icons/bg.svg",
-                fit: BoxFit.fill,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-              ),
               Center(
                 child: _user != null
                     ? _scores.isNotEmpty

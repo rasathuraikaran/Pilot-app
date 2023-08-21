@@ -11,15 +11,17 @@ class Option extends StatelessWidget {
     required this.text,
     required this.index,
     required this.press,
+    required this.level
   }) : super(key: key);
   final String text;
   final int index;
   final VoidCallback press;
+  final String level;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<QuestionController>(
-        init: QuestionController(),
+        init: QuestionController(level),
         builder: (qnController) {
           Color getTheRightColor() {
             if (qnController.isAnswered) {

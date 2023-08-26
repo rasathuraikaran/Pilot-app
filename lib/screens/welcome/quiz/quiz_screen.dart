@@ -14,14 +14,10 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   late QuestionController _controller;
-
-  @override
   void initState() {
     super.initState();
-    setState(() {
-      _controller = Get.put(QuestionController(widget.level));
-      _controller.questions;
-    });
+    // Initialize the QuestionController here
+    _controller = Get.put(QuestionController(widget.level));
   }
 
   @override

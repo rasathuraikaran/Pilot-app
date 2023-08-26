@@ -44,6 +44,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xFF1C2341),
         appBar: AppBar(
           title: Text('Login'),
           backgroundColor: Color(0xFF1C2341),
@@ -53,12 +54,6 @@ class LoginScreen extends StatelessWidget {
             color: Color(0xFF1C2341),
             child: Stack(
               children: [
-                SvgPicture.asset(
-                  "assets/icons/bg.svg",
-                  fit: BoxFit.fill,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                ),
                 Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(

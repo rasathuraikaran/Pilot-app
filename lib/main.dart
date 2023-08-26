@@ -12,6 +12,8 @@ import 'package:quiz_app_pilot/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:quiz_app_pilot/start.dart';
+import 'package:quiz_app_pilot/userinfo.dart';
+import 'package:quiz_app_pilot/userscreen.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +27,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Quiz App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: NewWelcomeScreen(),
-    );
+        title: 'Quiz App',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
+        home: NewWelcomeScreen());
   }
 }

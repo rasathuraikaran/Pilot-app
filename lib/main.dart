@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quiz_app_pilot/home.dart';
@@ -27,9 +28,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Quiz App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: NewWelcomeScreen());
+      title: 'Quiz App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (userSnapshot.hasData) {
+            print(userSnapshot.data);
+            return MyStatelessWidget();
+          }
+
+          return NewWelcomeScreen();
+        },
+      ),
+    );
   }
 }

@@ -65,15 +65,15 @@ class WelcomeScreen extends StatelessWidget {
 
   Future<void> fetchQuestions() async {
     final DatabaseReference database = FirebaseDatabase.instance.reference();
-    print("karan is ");
+
     DataSnapshot snapshot =
         await database.child('QuestionsList').once() as DataSnapshot;
 
     if (snapshot.value != null && snapshot.value is Map) {
-      print("karan is mass");
+   
 
       print(snapshot.value);
-      print("karan is thamamass");
+   
 
       Map<dynamic, dynamic> data = snapshot.value as Map<dynamic, dynamic>;
     }

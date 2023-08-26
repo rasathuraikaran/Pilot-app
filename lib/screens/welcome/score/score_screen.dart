@@ -78,13 +78,22 @@ class ScoreScreen extends StatelessWidget {
                         .headline4!
                         .copyWith(color: kSecondaryColor),
                   ),
-                  if (message == "Keep it up!")
+                  if (message == "Great job! You nailed it!")
                     Container(
                       child: Lottie.asset('assets/icons/champ.json'),
                     )
-                  else
+                  else if (message == "You can do better. Review the material")
                     Container(
                       child: Lottie.asset('assets/icons/think.json'),
+                    )
+                  else if (message ==
+                      "You need more practice. Study the material thoroughly.")
+                    Container(
+                      child: Lottie.asset('assets/icons/20.json'),
+                    )
+                  else
+                    Container(
+                      child: Lottie.asset('assets/icons/40.json'),
                     ),
                   Text(
                     message,

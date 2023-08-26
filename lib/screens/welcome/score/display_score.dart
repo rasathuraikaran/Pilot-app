@@ -24,7 +24,7 @@ class _UserScoresPageState extends State<UserScoresPage> {
 
   Future<void> _fetchUserData() async {
     _user = _auth.currentUser;
-    print("start karan ");
+  
     if (_user != null) {
       _userScoreRef
           .child(_user!.uid)
@@ -40,7 +40,7 @@ class _UserScoresPageState extends State<UserScoresPage> {
               snapshot.value as Map<dynamic, dynamic>;
           List<int> scores =
               scoresMap.values.cast<int>().toList().reversed.toList();
-          print("karan list");
+        
           print(scores);
           setState(() {
             _scores = scores;

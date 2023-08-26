@@ -4090,7 +4090,7 @@ class QuestionController extends GetxController
     // Once 60s is completed go to the next qn
     await fetchQuestionsByLevel(level);
 
-    print("karan is now populated");
+
     print(_questions);
     super.onInit();
   }
@@ -4205,7 +4205,7 @@ class QuestionController extends GetxController
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
     } else {
-      print("Karan number of corrected answers");
+  
       print(numOfCorrectAns);
       Get.to(ScoreScreen(
         level: level,

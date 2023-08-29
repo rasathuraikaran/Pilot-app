@@ -47,7 +47,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           enumber = value['address'];
 
           setState(() {});
-          print("Str");
+        
         }
       },
     );

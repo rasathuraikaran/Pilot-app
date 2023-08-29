@@ -49,14 +49,13 @@ class _UserDetailsState extends State<UserDetails> {
     }
 
     try {
-      print('ok da chellam paa');
-      print(fname);
-
+     
+     
       final url = Uri.parse(
           'https://pilotquizapp-default-rtdb.firebaseio.com/usersDetails.json');
       final response = await http.get(url);
 
-      print('ok da chellam');
+     
 
       // final url2 = Uri.parse(
       //     'https://roadsafe-ab1d9-default-rtdb.firebaseio.com/accident_check/$uid.json');
